@@ -1,0 +1,9 @@
+# Backend
+BACKENDPORT=<br/>
+# Mysql
+
+MYSQLHOST=<br/>
+MYSQLPORT=<br/>
+MYSQLUSER=<br/>
+MYSQLPASSWORD=<br/>
+MYSQLDATABASE=<br/>
