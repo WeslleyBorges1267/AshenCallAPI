@@ -13,4 +13,7 @@ app.get('/', (req, res) => {
 const createAccount = require('./controller/createAccount');
 app.use('/createAccount', createAccount);
 
+const findPosition = require('./controller/findPosition');
+app.use('/findPosition', findPosition);
+
 module.exports = app;
