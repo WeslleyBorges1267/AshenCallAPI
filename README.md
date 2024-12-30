@@ -1,7 +1,9 @@
 # Backend
 BACKENDPORT=<br/>
-# Mysql
+BCRYPTSALTS=<br/>
+JWTSECRET=<br/>
 
+# Mysql
 MYSQLHOST=<br/>
 MYSQLPORT=<br/>
 MYSQLUSER=<br/>
