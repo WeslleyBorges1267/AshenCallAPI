@@ -16,4 +16,7 @@ app.use('/createAccount', createAccount);
 const findPosition = require('./controller/findPosition');
 app.use('/findPosition', findPosition);
 
+const loginAccount = require('./controller/loginAccount');
+app.use('/loginAccount', loginAccount);
+
 module.exports = app;

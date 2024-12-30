@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 172.17.0.2
--- Tempo de geração: 06/11/2024 às 18:30
+-- Tempo de geração: 30/12/2024 às 22:57
 -- Versão do servidor: 9.1.0
--- Versão do PHP: 8.2.25
+-- Versão do PHP: 8.2.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -33,6 +33,13 @@ CREATE TABLE `cargos` (
   `idCargo` int NOT NULL,
   `nomeCargo` varchar(35) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Despejando dados para a tabela `cargos`
+--
+
+INSERT INTO `cargos` (`idCargo`, `nomeCargo`) VALUES
+(2, 'Serviços gerais');
 
 -- --------------------------------------------------------
 
@@ -74,6 +81,14 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
+-- Despejando dados para a tabela `users`
+--
+
+INSERT INTO `users` (`idUser`, `nomeUser`, `emailUser`, `passwordUser`, `cargo`) VALUES
+(50, 'teste', 'teste.email@gmail.com', '$2b$12$KmHGqPTyWsXxQFpHyDsiE.93ftM6bRbNBbM7bJyb9sLtyA.YWOHFC', 2),
+(51, 'teste', 'teste2.email@gmail.com', '$2b$12$a7ixulaRomrLVTAMsP2Scug.ny.M5aGo9fuZUQ1ZWKO9b.pfR4V/C', 2);
+
+--
 -- Índices para tabelas despejadas
 --
 
@@ -112,7 +127,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de tabela `cargos`
 --
 ALTER TABLE `cargos`
-  MODIFY `idCargo` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idCargo` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `chamados`
@@ -130,7 +145,7 @@ ALTER TABLE `statusChamado`
 -- AUTO_INCREMENT de tabela `users`
 --
 ALTER TABLE `users`
-  MODIFY `idUser` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `idUser` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- Restrições para tabelas despejadas
