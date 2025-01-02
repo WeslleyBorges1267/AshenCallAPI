@@ -11,7 +11,7 @@ app.get('/', (req, res) => {
     });
 });
 
-// Routes
+// Routes POST
 const createAccount = require('./controller/createAccount');
 app.use('/createAccount', createAccount);
 
@@ -20,5 +20,12 @@ app.use('/findPosition', findPosition);
 
 const loginAccount = require('./controller/loginAccount');
 app.use('/loginAccount', loginAccount);
+
+// Routes GET
+const getTypeCalled = require('./controller/get/getTypeCalled');
+app.use('/getTypeCalled', getTypeCalled);
+
+const getStatusCalled = require('./controller/get/getStatusCalled');
+app.use('/getStatusCalled', getStatusCalled);
 
 module.exports = app;

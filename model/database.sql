@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 172.17.0.2
--- Tempo de geração: 02/01/2025 às 15:58
+-- Tempo de geração: 02/01/2025 às 18:43
 -- Versão do servidor: 9.1.0
 -- Versão do PHP: 8.2.27
 
@@ -130,7 +130,9 @@ CREATE TABLE `tipoChamado` (
 --
 
 INSERT INTO `tipoChamado` (`idTipoChamado`, `nomeTipoChamado`) VALUES
-(1, 'Suporte Técnico');
+(1, 'Suporte'),
+(2, 'Edital'),
+(3, 'Viagem');
 
 -- --------------------------------------------------------
 
@@ -243,7 +245,7 @@ ALTER TABLE `statusChamado`
 -- AUTO_INCREMENT de tabela `tipoChamado`
 --
 ALTER TABLE `tipoChamado`
-  MODIFY `idTipoChamado` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idTipoChamado` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `users`

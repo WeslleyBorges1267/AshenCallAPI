@@ -18,7 +18,7 @@ router.post('/', async (req, res) => {
                 email: dataUser['emailUser'],
             }, process.env.JWTSECRET, {expiresIn: "24h"});
             res.cookie("ashenCallToken", token, {expires: new Date(Date.now() + 86400000), httpOnly: true});
-            res.status(200).json({statusCode: 200, token: token});
+            res.status(202).json({statusCode: 202, msg: "Logado com sucesso!"});
         }else{
             res.status(404).json({statusCode: 404, msg: "Email ou senha incorreto"});
         }
