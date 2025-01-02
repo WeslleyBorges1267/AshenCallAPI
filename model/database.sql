@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 172.17.0.2
--- Tempo de geração: 30/12/2024 às 22:57
+-- Tempo de geração: 02/01/2025 às 15:58
 -- Versão do servidor: 9.1.0
 -- Versão do PHP: 8.2.27
 
@@ -51,9 +51,47 @@ CREATE TABLE `chamados` (
   `idChamado` int NOT NULL,
   `tituloChamado` varchar(60) NOT NULL,
   `descricaoChamado` text,
+  `tipoChamado` int NOT NULL,
   `statusChamado` int NOT NULL,
-  `tecnicoChamado` int NOT NULL
+  `grupoResponsavel` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `grupos`
+--
+
+CREATE TABLE `grupos` (
+  `idGrupo` int NOT NULL,
+  `nomeGrupo` varchar(35) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Despejando dados para a tabela `grupos`
+--
+
+INSERT INTO `grupos` (`idGrupo`, `nomeGrupo`) VALUES
+(1, 'Suporte de TI');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `grupoUsuarios`
+--
+
+CREATE TABLE `grupoUsuarios` (
+  `idGrupoUsuario` int NOT NULL,
+  `idUsuario` int NOT NULL,
+  `idGrupo` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Despejando dados para a tabela `grupoUsuarios`
+--
+
+INSERT INTO `grupoUsuarios` (`idGrupoUsuario`, `idUsuario`, `idGrupo`) VALUES
+(1, 50, 1);
 
 -- --------------------------------------------------------
 
@@ -65,6 +103,34 @@ CREATE TABLE `statusChamado` (
   `idStatus` int NOT NULL,
   `nomeStatus` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Despejando dados para a tabela `statusChamado`
+--
+
+INSERT INTO `statusChamado` (`idStatus`, `nomeStatus`) VALUES
+(1, 'Aberto'),
+(2, 'Em atendimento'),
+(3, 'Solucionado'),
+(4, 'Fechado');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `tipoChamado`
+--
+
+CREATE TABLE `tipoChamado` (
+  `idTipoChamado` int NOT NULL,
+  `nomeTipoChamado` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Despejando dados para a tabela `tipoChamado`
+--
+
+INSERT INTO `tipoChamado` (`idTipoChamado`, `nomeTipoChamado`) VALUES
+(1, 'Suporte Técnico');
 
 -- --------------------------------------------------------
 
@@ -103,14 +169,34 @@ ALTER TABLE `cargos`
 --
 ALTER TABLE `chamados`
   ADD PRIMARY KEY (`idChamado`),
-  ADD KEY `fk_tecnicoChamado` (`tecnicoChamado`),
-  ADD KEY `fk_statusChamado` (`statusChamado`);
+  ADD KEY `fk_statusChamado` (`statusChamado`),
+  ADD KEY `fk_tipoChamado` (`tipoChamado`);
+
+--
+-- Índices de tabela `grupos`
+--
+ALTER TABLE `grupos`
+  ADD PRIMARY KEY (`idGrupo`);
+
+--
+-- Índices de tabela `grupoUsuarios`
+--
+ALTER TABLE `grupoUsuarios`
+  ADD PRIMARY KEY (`idGrupoUsuario`),
+  ADD KEY `fk_idUsuario` (`idUsuario`),
+  ADD KEY `fk_idGrupo` (`idGrupo`);
 
 --
 -- Índices de tabela `statusChamado`
 --
 ALTER TABLE `statusChamado`
   ADD PRIMARY KEY (`idStatus`);
+
+--
+-- Índices de tabela `tipoChamado`
+--
+ALTER TABLE `tipoChamado`
+  ADD PRIMARY KEY (`idTipoChamado`);
 
 --
 -- Índices de tabela `users`
@@ -136,10 +222,28 @@ ALTER TABLE `chamados`
   MODIFY `idChamado` int NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de tabela `grupos`
+--
+ALTER TABLE `grupos`
+  MODIFY `idGrupo` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de tabela `grupoUsuarios`
+--
+ALTER TABLE `grupoUsuarios`
+  MODIFY `idGrupoUsuario` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT de tabela `statusChamado`
 --
 ALTER TABLE `statusChamado`
-  MODIFY `idStatus` int NOT NULL AUTO_INCREMENT;
+  MODIFY `idStatus` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de tabela `tipoChamado`
+--
+ALTER TABLE `tipoChamado`
+  MODIFY `idTipoChamado` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `users`
@@ -156,7 +260,14 @@ ALTER TABLE `users`
 --
 ALTER TABLE `chamados`
   ADD CONSTRAINT `fk_statusChamado` FOREIGN KEY (`statusChamado`) REFERENCES `statusChamado` (`idStatus`),
-  ADD CONSTRAINT `fk_tecnicoChamado` FOREIGN KEY (`tecnicoChamado`) REFERENCES `users` (`idUser`);
+  ADD CONSTRAINT `fk_tipoChamado` FOREIGN KEY (`tipoChamado`) REFERENCES `tipoChamado` (`idTipoChamado`);
+
+--
+-- Restrições para tabelas `grupoUsuarios`
+--
+ALTER TABLE `grupoUsuarios`
+  ADD CONSTRAINT `fk_idGrupo` FOREIGN KEY (`idGrupo`) REFERENCES `grupos` (`idGrupo`),
+  ADD CONSTRAINT `fk_idUsuario` FOREIGN KEY (`idUsuario`) REFERENCES `users` (`idUser`);
 
 --
 -- Restrições para tabelas `users`
