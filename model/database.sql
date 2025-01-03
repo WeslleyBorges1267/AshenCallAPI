@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 172.17.0.2
--- Tempo de geração: 02/01/2025 às 18:43
+-- Tempo de geração: 03/01/2025 às 22:20
 -- Versão do servidor: 9.1.0
 -- Versão do PHP: 8.2.27
 
@@ -172,7 +172,8 @@ ALTER TABLE `cargos`
 ALTER TABLE `chamados`
   ADD PRIMARY KEY (`idChamado`),
   ADD KEY `fk_statusChamado` (`statusChamado`),
-  ADD KEY `fk_tipoChamado` (`tipoChamado`);
+  ADD KEY `fk_tipoChamado` (`tipoChamado`),
+  ADD KEY `fk_grupoResponsavel` (`grupoResponsavel`);
 
 --
 -- Índices de tabela `grupos`
@@ -261,6 +262,7 @@ ALTER TABLE `users`
 -- Restrições para tabelas `chamados`
 --
 ALTER TABLE `chamados`
+  ADD CONSTRAINT `fk_grupoResponsavel` FOREIGN KEY (`grupoResponsavel`) REFERENCES `grupos` (`idGrupo`),
   ADD CONSTRAINT `fk_statusChamado` FOREIGN KEY (`statusChamado`) REFERENCES `statusChamado` (`idStatus`),
   ADD CONSTRAINT `fk_tipoChamado` FOREIGN KEY (`tipoChamado`) REFERENCES `tipoChamado` (`idTipoChamado`);
 

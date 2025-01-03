@@ -21,11 +21,17 @@ app.use('/findPosition', findPosition);
 const loginAccount = require('./controller/loginAccount');
 app.use('/loginAccount', loginAccount);
 
+const createCalled = require('./controller/Called/createCalled');
+app.use('/createCalled', createCalled);
+
 // Routes GET
 const getTypeCalled = require('./controller/get/getTypeCalled');
 app.use('/getTypeCalled', getTypeCalled);
 
 const getStatusCalled = require('./controller/get/getStatusCalled');
 app.use('/getStatusCalled', getStatusCalled);
+
+const getGroups = require('./controller/get/getGroups');
+app.use('/getGroups', getGroups);
 
 module.exports = app;

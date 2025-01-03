@@ -15,7 +15,7 @@ router.post('/', async (req, res) => {
             const dataUser = await loginUser.getDataUser();
             const token = jwt.sign({
                 idUser: dataUser['idUser'],
-                email: dataUser['emailUser'],
+                emailUser: dataUser['emailUser'],
             }, process.env.JWTSECRET, {expiresIn: "24h"});
             res.cookie("ashenCallToken", token, {expires: new Date(Date.now() + 86400000), httpOnly: true});
             res.status(202).json({statusCode: 202, msg: "Logado com sucesso!"});

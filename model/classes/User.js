@@ -22,6 +22,19 @@ class User {
         })
     }
 
+    verifyUserExist(idUser, email) {
+        return new Promise((resolve, reject) => {
+            const selectSQL = `SELECT idUser, emailUser FROM users WHERE idUser = '${idUser}' AND emailUser = '${email}'`;
+            const querySQL = db.query(selectSQL, (err, result) => {
+                if(err){
+                    reject(err);
+                }else{
+                    resolve(result);
+                }
+            })
+        })
+    }
+
     hashPassword() {
         return new Promise((resolve, reject) => {
             bcrypt.genSalt(parseInt(process.env.BCRYPTSALTS), (err, salt) => {
