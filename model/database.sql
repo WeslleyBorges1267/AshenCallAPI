@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 172.17.0.2
--- Tempo de geração: 03/01/2025 às 22:20
+-- Tempo de geração: 08/01/2025 às 14:09
 -- Versão do servidor: 9.1.0
--- Versão do PHP: 8.2.27
+-- Versão do PHP: 8.2.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -55,6 +55,25 @@ CREATE TABLE `chamados` (
   `statusChamado` int NOT NULL,
   `grupoResponsavel` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Despejando dados para a tabela `chamados`
+--
+
+INSERT INTO `chamados` (`idChamado`, `tituloChamado`, `descricaoChamado`, `tipoChamado`, `statusChamado`, `grupoResponsavel`) VALUES
+(1, 'Formação', 'aaa', 1, 1, 1),
+(2, 'Formação', 'aaa', 1, 1, 1),
+(3, 'Formação', 'aaa', 1, 1, 1),
+(4, 'Formação', 'aaa', 1, 1, 1),
+(6, 'Formação', 'aaa', 1, 1, 1),
+(10, 'Formação', 'aaa', 2, 1, 1),
+(15, 'Formação', 'aaa', 2, 1, 1),
+(21, 'Formação', 'aaa', 3, 1, 1),
+(22, 'Formação', 'aaa', 3, 1, 1),
+(23, 'Formação', 'aaa', 3, 1, 1),
+(24, 'Formação', 'aaa', 3, 1, 1),
+(25, 'Formação', 'aaa', 3, 1, 1),
+(36, 'Formação', 'aaa', 3, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -153,8 +172,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`idUser`, `nomeUser`, `emailUser`, `passwordUser`, `cargo`) VALUES
-(50, 'teste', 'teste.email@gmail.com', '$2b$12$KmHGqPTyWsXxQFpHyDsiE.93ftM6bRbNBbM7bJyb9sLtyA.YWOHFC', 2),
-(51, 'teste', 'teste2.email@gmail.com', '$2b$12$a7ixulaRomrLVTAMsP2Scug.ny.M5aGo9fuZUQ1ZWKO9b.pfR4V/C', 2);
+(50, 'teste', 'teste.email@gmail.com', '$2b$12$KmHGqPTyWsXxQFpHyDsiE.93ftM6bRbNBbM7bJyb9sLtyA.YWOHFC', 2);
 
 --
 -- Índices para tabelas despejadas
@@ -222,7 +240,7 @@ ALTER TABLE `cargos`
 -- AUTO_INCREMENT de tabela `chamados`
 --
 ALTER TABLE `chamados`
-  MODIFY `idChamado` int NOT NULL AUTO_INCREMENT;
+  MODIFY `idChamado` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT de tabela `grupos`

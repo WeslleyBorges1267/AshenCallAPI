@@ -1,6 +1,10 @@
 const db = require('./../conect');
 
 class Group {
+    getOneGroup(idGroup) {
+
+    }
+
     getGroups() {
         return new Promise((resolve, reject) => {
             const selectSQL = `SELECT * FROM grupos`;

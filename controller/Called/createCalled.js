@@ -3,26 +3,31 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const dotenv = require('./../../dotenv');
 const User = require('./../../model/classes/User');
+const Called = require('./../../model/classes/Called');
 
 router.post('/', async (req, res) => {
+    const {titleCalled, describeCalled, typeCalled, statusCalled, responsibleGroup} = req.body;
     const cookies = req.cookies;
-    console.log(cookies);
     if(Object.getPrototypeOf(cookies) == null){
         res.status(404).json({statusCode: 404, msg: "Token de autenticação não encontrado"});
     }else{
         try {
             const tokenData = jwt.verify(cookies['ashenCallToken'], process.env.JWTSECRET)
+            //const verifyUser = new User({idCalled: null, titleCalled: null, describeCalled: null, typeCalled: null, statusCalled: null, responsibleGroup: null});
             const verifyUser = new User();
-            console.log('tokienData:', tokenData);
             try {
                 const dbResponse = await verifyUser.verifyUserExist(tokenData['idUser'], tokenData['emailUser']);
                 if(dbResponse.length == 1){
-                    res.status(200).json({"veredito": "Pode criar chamado"});
+                    const createCalled = new Called({idCalled: null, titleCalled: titleCalled, describeCalled: describeCalled, typeCalled: typeCalled, statusCalled: statusCalled, responsibleGroup: responsibleGroup});
+                    const responseCreateCalled = await createCalled.createCalled();
+                    console.log(responseCreateCalled)
+                    res.status(responseCreateCalled.statusCode).json({msg: responseCreateCalled.msg});
                 }else{
-                    res.status(200).json({"Veredito": "Não pode"});
+                    res.status(404).json({statusCode: 404, msg: "Usuário não encontrado"});
                 }
             }catch(exception){
                 console.log('erro ao verificar se o usuário existia: ', exception);
+                res.status(exception.statusCode).json({statusCode: exception.statusCode, msg: "Erro de requisição"});
             }
         } catch (err) {
             if (err.name === 'TokenExpiredError') {
@@ -35,27 +40,7 @@ router.post('/', async (req, res) => {
             return null;
         }
 
-        //const tokenData = jwt.verify(cookies['ashenCallToken'], process.env.JWTSECRET)
     }
-    /*
-    if(!cookies.hasOwnProperty('ashenCallToken')){
-        res.status(404).json({statusCode: 404, msg: "Token de autenticação não encontrado"});
-    }else{
-        const tokenData = jwt.verify(cookies['ashenCallToken'], process.env.JWTSECRET)
-        const verifyUser = new User();
-        console.log('tokienData:', tokenData);
-        try {
-            const dbResponse = await verifyUser.verifyUserExist(tokenData['idUser'], tokenData['emailUser']);
-            if(dbResponse.length == 1){
-                res.status(200).json({"veredito": "Pode criar chamado"});
-            }else{
-                res.status(200).json({"Veredito": "Não pode"});
-            }
-        }catch(exception){
-            console.log('erro ao verificar se o usuário existia: ', exception);
-        }
-    }
-    */
         
 });
 

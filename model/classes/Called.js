@@ -1,12 +1,35 @@
 const db = require('./../conect');
 class Called {
-    constructor(idCalled, titleCalled, describeCalled, typeCalled, statusCalled, responsibleGroup) {
+    constructor({idCalled = null, titleCalled = null, describeCalled = null, typeCalled = null, statusCalled = null, responsibleGroup = null} = {}) {
         this.idCalled = idCalled;
-        this.titleCalled = titleCalled
-        this.describeCalled = describeCalled
-        this.typeCalled = typeCalled
-        this.statusCalled = statusCalled
-        this.responsibleGroup = responsibleGroup
+        this.titleCalled = titleCalled;
+        this.describeCalled = describeCalled;
+        this.typeCalled = typeCalled;
+        this.statusCalled = statusCalled;
+        this.responsibleGroup = responsibleGroup;
+    }
+
+    createCalled() {
+        return new Promise((resolve, reject) => {
+            if(parseInt(this.typeCalled) && parseInt(this.statusCalled) && parseInt(this.responsibleGroup)){
+                const createSQL = `INSERT INTO chamados values (default, '${this.titleCalled}', '${this.describeCalled}', '${this.typeCalled}', '${this.statusCalled}', '${this.responsibleGroup}')`;
+                const querySQL = db.query(createSQL, (err, result) => {
+                    if(err){
+                        console.log('Erro ao tentar criar chamado de titulo:', this.titleCalled);
+                        reject({statusCode: 500, msg: err});
+                    }else{
+                        console.log('Chamado criado com sucesso');
+                        resolve({statusCode: 201, msg: "Chamado criado com sucesso"});
+                    }
+                });   
+            }else{
+                reject({statusCode: 400, msg: "Tipo de chamado, Status ou Grupo responsávell não foi referenciado corretamente"});
+            }
+        })
+    }
+
+    getOneTypeCalled(idTypeCalled) {
+
     }
 
     getTypeCalled() {
@@ -20,6 +43,10 @@ class Called {
                 }
             })
         })
+    }
+
+    getOneStatusCalled(idStatusCalled) {
+
     }
 
     getStatusCalled() {

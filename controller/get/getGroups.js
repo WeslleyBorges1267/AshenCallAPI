@@ -9,8 +9,8 @@ router.get('/', async (req, res) => {
         res.status(200).json({statusCode: 200, msg: Groups})
     }catch(exception) {
         console.log('Erro ao buscar os Grupos na classe:', exception);
+        res.status(500).json({statusCode: 500, msg: "Erro ao tentar solicitar os grupos de usuários"})
     }
-    res.status(200).json({"teste": "testando rota dos grupos"});
 });
 
 module.exports = router;
