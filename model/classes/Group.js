@@ -1,8 +1,21 @@
 const db = require('./../conect');
 
 class Group {
-    getOneGroup(idGroup) {
-
+    getVerifyGroup(idGroup) {
+        return new Promise((resolve, reject) => {
+            try{
+                const selectSQL = `SELECT * FROM grupos WHERE idGrupo = '${idGroup}'`;
+                const querySQL = db.query(selectSQL, (err, result) => {
+                    if(result.length === 1) {
+                        resolve(true);
+                    }else{
+                        reject(false);
+                    };
+                });
+            }catch(e){
+                console.log('aaa', e);
+            }
+        });
     }
 
     getGroups() {

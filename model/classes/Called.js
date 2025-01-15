@@ -18,7 +18,6 @@ class Called {
                         console.log('Erro ao tentar criar chamado de titulo:', this.titleCalled);
                         reject({statusCode: 500, msg: err});
                     }else{
-                        console.log('Chamado criado com sucesso');
                         resolve({statusCode: 201, msg: "Chamado criado com sucesso"});
                     }
                 });   
@@ -28,9 +27,18 @@ class Called {
         })
     }
 
-    getOneTypeCalled(idTypeCalled) {
-
-    }
+    getVerifyTypeCalled(idTypeCalled) {
+        return new Promise((resolve, reject) => {
+            const selectSQL = `SELECT * FROM tipoChamado WHERE idTipoChamado = '${idTypeCalled}'`;
+            const querySQL = db.query(selectSQL, (err, result) => {
+                if(result.length === 1) {
+                    resolve(true);
+                }else{
+                    reject(false);
+                };
+            });
+        });
+    };
 
     getTypeCalled() {
         return new Promise((resolve, reject) => {
@@ -45,8 +53,17 @@ class Called {
         })
     }
 
-    getOneStatusCalled(idStatusCalled) {
-
+    getVerifyStatusCalled(idStatusCalled) {
+        return new Promise((resolve, reject) => {
+            const selectSQL = `SELECT * FROM statusChamado WHERE idTipoChamado = '${idStatusCalled}'`;
+            const querySQL = db.query(selectSQL, (err, result) => {
+                if(result.length === 1) {
+                    resolve(true);
+                }else{
+                    reject(false);
+                };
+            });
+        });
     }
 
     getStatusCalled() {

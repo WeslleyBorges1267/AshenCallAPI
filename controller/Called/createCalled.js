@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const dotenv = require('./../../dotenv');
 const User = require('./../../model/classes/User');
 const Called = require('./../../model/classes/Called');
+const Group = require('./../../model/classes/Group');
 
 router.post('/', async (req, res) => {
     const {titleCalled, describeCalled, typeCalled, statusCalled, responsibleGroup} = req.body;
@@ -18,10 +19,18 @@ router.post('/', async (req, res) => {
             try {
                 const dbResponse = await verifyUser.verifyUserExist(tokenData['idUser'], tokenData['emailUser']);
                 if(dbResponse.length == 1){
+                    // Verificação de tipo, status e grupo associados ao chamado;
                     const createCalled = new Called({idCalled: null, titleCalled: titleCalled, describeCalled: describeCalled, typeCalled: typeCalled, statusCalled: statusCalled, responsibleGroup: responsibleGroup});
-                    const responseCreateCalled = await createCalled.createCalled();
-                    console.log(responseCreateCalled)
-                    res.status(responseCreateCalled.statusCode).json({msg: responseCreateCalled.msg});
+                    const verifyGroup = new Group();
+                    const verifyTypeCalled = await createCalled.getVerifyTypeCalled(typeCalled);
+                    const verifyStatusCalled = await createCalled.getVerifyTypeCalled(statusCalled);
+                    const verifyIdGroup = await verifyGroup.getVerifyGroup(responsibleGroup);
+                    if(verifyTypeCalled && verifyStatusCalled && verifyIdGroup) {
+                        const responseCreateCalled = await createCalled.createCalled();
+                        res.status(responseCreateCalled.statusCode).json({msg: responseCreateCalled.msg});
+                    }else{
+                        res.status(400).json({statusCode: 400, msg: "Erro ao verificar o tipo, status ou grupo associado ao chamado"});
+                    }
                 }else{
                     res.status(404).json({statusCode: 404, msg: "Usuário não encontrado"});
                 }

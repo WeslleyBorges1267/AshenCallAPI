@@ -24,6 +24,12 @@ app.use('/loginAccount', loginAccount);
 const createCalled = require('./controller/Called/createCalled');
 app.use('/createCalled', createCalled);
 
+const readCalled = require('./controller/Called/readCalled');
+app.use('/readCalled', readCalled);
+
+const readOwnCalled = require('./controller/Called/readOwnCalled');
+app.use('/readOwnCalled', readOwnCalled);
+
 // Routes GET
 const getTypeCalled = require('./controller/get/getTypeCalled');
 app.use('/getTypeCalled', getTypeCalled);
