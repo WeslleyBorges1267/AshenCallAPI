@@ -9,6 +9,40 @@ class Called {
         this.responsibleGroup = responsibleGroup;
     }
 
+    getOwnCalled(idUser, statusCalled) {
+        return new Promise((resolve, reject) => {
+            const selectSQL = `SELECT idGrupo FROM grupoUsuarios WHERE idUsuario = '${idUser}'`;
+            const querySQL = db.query(selectSQL, (err, result) => {
+                if(err){
+                    console.log(`Erro ao buscar chamados do usuário de id ${idUser}:`, err);
+                }else{
+                    let grupos = [];
+                    for(let i = 0; i < result.length; i++){
+                        grupos.push(result[i]['idGrupo']);
+                    }
+                    
+                    console.log(grupos);
+                    let grupoResponsavel = '';
+                    for(let i = 0; i < grupos.length; i++){
+                        if(i == grupos.length - 1){
+                            grupoResponsavel += `grupoResponsavel = ${grupos[i]}`;
+                        }else{
+                            grupoResponsavel += `grupoResponsavel = ${grupos[i]} || `;
+                        }
+                    }
+                    const selectSQL2 = `SELECT * FROM chamados WHERE statusChamado = '${statusCalled}' && (${grupoResponsavel})`;
+                    const querySQL2 = db.query(selectSQL2, (err, result) => {
+                        if(err){
+                            console.log(`Erro ao buscar chamados do usuário de id ${idUser} grupo(s) ${grupos}`);
+                        }else{
+                            resolve(result);
+                        }
+                    })
+                }
+            });
+        });
+    };   
+
     createCalled() {
         return new Promise((resolve, reject) => {
             if(parseInt(this.typeCalled) && parseInt(this.statusCalled) && parseInt(this.responsibleGroup)){

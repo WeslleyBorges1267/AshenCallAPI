@@ -27,8 +27,8 @@ app.use('/createCalled', createCalled);
 const readCalled = require('./controller/Called/readCalled');
 app.use('/readCalled', readCalled);
 
-const readOwnCalled = require('./controller/Called/readOwnCalled');
-app.use('/readOwnCalled', readOwnCalled);
+const readOpenOwnCalled = require('./controller/Called/readOpenOwnCalled');
+app.use('/readOpenOwnCalled', readOpenOwnCalled);
 
 // Routes GET
 const getTypeCalled = require('./controller/get/getTypeCalled');
